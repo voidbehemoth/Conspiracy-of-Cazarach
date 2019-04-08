@@ -1,0 +1,28 @@
+body {
+    background-image: url("back.png");
+}
+
+
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+.center_1 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+  }
+
+.white {
+    color: white;
+    font-weight: bold;
+}
+
+.unselctable {
+    user-select: none;
+}

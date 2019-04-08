@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Conspiracy of Cazarach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1 align="center">Conspiracy of Cazarach</h1>
+     
+    <h1 align="center">Example Image</h1>
+    <img src="\test/494c6e2.jpg" width="1000" class="center">
+
+    <h1 align="center">Example Audio</h1>
+    <audio id="audio_player_1" src="\test/ladies and gentlemen we got him.mp3" width="1000" controls class="center"></audio>
+
+    <audio id="audio_player_2" src="\test/ladies and gentlemen we got him.mp3"></audio>
+
+    <h1 align="middle">Example of Audio Button</h1>
+    <button id="play_music" width="1000" class="center">Play the music above</button>
+
+    <h1 align="center">Example GIFs</h1>
+    <img src="\test/FinalFroggit.gif" width="1000" class="center">
+    <img src="\test/Froggit.gif" width="1000" class="center">
+    <img src="\test/tenor (1).gif" width="1000" class="center">
+    <img src="\test/tenor.gif" width="1000" class="center">
+    <img src="\test/tum.gif" width="1000" class="center">
+
+    <h1 align="center">Example 'Movie'</h1>
+    <video src="\test/Fallout 76 – Official Trailer.mp4" controls width="1000" class="center"></video>
+</body>
+</html>
