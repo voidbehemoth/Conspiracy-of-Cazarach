@@ -9,7 +9,6 @@ const io = require("./utilities/socket_setup.js");
 // const cors = require("cors")
 require("./utilities/upgraded_console.js").init("dev");
 const logger = require("./utilities/upgraded_console.js").exported_logger;
-console.log(logger);
 
 app.use(express.static("public_files"));
 app.use(express.urlencoded({
@@ -26,7 +25,6 @@ app.use(session({
 }));
 // app.use(cors());
 app.use(function (request, response, next) {
-    logger.dev("This message will only show up if in development")
     next();
 });
 
