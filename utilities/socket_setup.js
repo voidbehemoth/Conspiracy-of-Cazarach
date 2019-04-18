@@ -12,51 +12,62 @@ let {
     games
 } = common_data;
 
+function wait(milliseconds) {
+    return new Promise((resolve, reject ) => {
+        setTimeout(()=>{
+            resolve();
+        },milliseconds)
+    })
+}
+
+function getInfo(socket_ID) {
+    // TODO
+}
+
 io.on("connection", function (socket) {
+    socket.on("status", () => {
+        let status_object;
+
+
+
+        socket.emit("status", status_object)
+    })
     nicknames[`${socket.id}`] = `${socket.id}`
     console.log(`${socket.id} has connected to the server!`);
     socket.emit("chat message", `Your randomly generated user ID is ${nicknames[socket.id]}`)
     socket.emit("chat message", `You aren't currently in a game, type: "/join" to join a game, or type "/create-game" to create a game \n Bored? Type "/leave" to leave this game. Do note that you cannot rejoin once you leave a game.`)
 
     // ok we need to fix this
-    function runGame(game) {
+    async function runGame(game) {
         if (game.cycle === "prep") {
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: Everyone must now pick a nickname using the /nickname command`);
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: If you fail to do so within 30 seconds you will be assigned a nickname`);
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: You will be unable to chat until you have picked a nickname`);
             game.nicknameGatheringMode = true;
-            setTimeout(function () {
-                io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 15 seconds left...`)
-                setTimeout(function () {
-                    io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 10 seconds left...`)
-                    setTimeout(function () {
-                        io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 5 seconds left...`)
-                        setTimeout(function () {
-                            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 4 seconds left...`)
-                            setTimeout(function () {
-                                io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 3 seconds left...`)
-                                setTimeout(function () {
-                                    io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 2 seconds left...`)
-                                    setTimeout(function () {
-                                        io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 1 seconds left...`)
-                                        setTimeout(function () {
-                                            nickentries = Object.entries(nicknames);
-                                            for (var i = 0; i < nickentries.length; i++) {
-                                                if (nickentries[i][0] === nickentries[i][1]) {
-                                                    var newNickname = assignedNicknames[Math.floor(Math.random() * assignedNicknames.length)];
-                                                    nicknames[nickentries[i][0]] = newNickname;
-                                                    io.to(`${nickentries[i][0]}`).emit("chat message", `You have been assigned ${newNickname} out of the pool of random nicknames`);
-                                                }
-                                            }
-                                            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: All players who didn't assign themselves a nickname have now been assigned one.`)
-                                        }, 1000)
-                                    }, 1000)
-                                }, 1000)
-                            }, 1000)
-                        }, 1000)
-                    }, 5000)
-                }, 5000)
-            }, 15000)
+            wait(15000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 15 seconds left...`)
+            wait(5000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 10 seconds left...`)
+            wait(5000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 5 seconds left...`)
+            wait(1000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 4 seconds left...`)
+            wait(1000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 3 seconds left...`)
+            wait(1000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 2 seconds left...`)
+            wait(1000)
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 1 seconds left...`)
+            wait(1000)
+            nickentries = Object.entries(nicknames);
+            for (var i = 0; i < nickentries.length; i++) {
+                if (nickentries[i][0] === nickentries[i][1]) {
+                    var newNickname = assignedNicknames[Math.floor(Math.random() * assignedNicknames.length)];
+                    nicknames[nickentries[i][0]] = newNickname;
+                    io.to(`${nickentries[i][0]}`).emit("chat message", `You have been assigned ${newNickname} out of the pool of random nicknames`);
+                }
+            }
+            io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: All players who didn't assign themselves a nickname have now been assigned one.`)
         }
     }
     socket.on("chat message", function (msg) {
