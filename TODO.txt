@@ -1,0 +1,9 @@
+TODO:
+- Implement middleware
+- - Which should be able to:
+- - - Automatically send messages to apropiate users
+- - - Handle permissions.
+- Implement status system
+- Finish pre-game system
+- Brainstorm ideas for game information storage structure?
+- Implement permissions system.

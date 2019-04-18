@@ -12,6 +12,7 @@ let {
     games
 } = common_data;
 
+// A self-implemented wait function. Only for use in async functions.
 function wait(milliseconds) {
     return new Promise((resolve, reject ) => {
         setTimeout(()=>{
@@ -20,11 +21,13 @@ function wait(milliseconds) {
     })
 }
 
+// Gets a player's object, which we can extract information from.
 function getInfo(socket_ID) {
     // TODO
 }
 
 io.on("connection", function (socket) {
+    // Will trigger when the user asks for information. Only for in-dev use.
     socket.on("status", () => {
         let status_object;
 
@@ -32,12 +35,15 @@ io.on("connection", function (socket) {
 
         socket.emit("status", status_object)
     })
+    // Assigns the user a default username that is their socket ID
     nicknames[`${socket.id}`] = `${socket.id}`
     console.log(`${socket.id} has connected to the server!`);
+    // Alerts the user of ther socket ID
     socket.emit("chat message", `Your randomly generated user ID is ${nicknames[socket.id]}`)
+    // A little helpful message to tell the player what they can do.
     socket.emit("chat message", `You aren't currently in a game, type: "/join" to join a game, or type "/create-game" to create a game \n Bored? Type "/leave" to leave this game. Do note that you cannot rejoin once you leave a game.`)
 
-    // ok we need to fix this
+    // A function to be called that will handle a cycle of a game. It will automatticaly detect what game cycle it is and handle it apropiately.
     async function runGame(game) {
         if (game.cycle === "prep") {
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: Everyone must now pick a nickname using the /nickname command`);
@@ -60,6 +66,7 @@ io.on("connection", function (socket) {
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 1 seconds left...`)
             wait(1000)
             nickentries = Object.entries(nicknames);
+            // Itetates through all users, checking if they have a nickname. 
             for (var i = 0; i < nickentries.length; i++) {
                 if (nickentries[i][0] === nickentries[i][1]) {
                     var newNickname = assignedNicknames[Math.floor(Math.random() * assignedNicknames.length)];
