@@ -19,7 +19,7 @@
       padding: 3px;
       position: fixed;
       bottom: 0;
-      width: 100%;
+      width: 90%;
     }
 
     form input {
@@ -65,11 +65,22 @@
         }
       })
       $('form').submit(function (e) {
-        e.preventDefault(); // prevents page reloading
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
+        e.preventDefault();
+        // Checks if the user has not inputted anything
+        if (!($('#m').val() === "")) {
+          if ($('#m').val() === "/status" || $('#m').val() === "/stats") {
+            socket.emit("status");
+            $('#m').val("");
+            return false;
+          } else {
+            socket.emit("chat message", $("#m").val());
+            $('#m').val("");
+            return false;
+          }
+        }
+        
       });
+
       socket.on('chat message', function (msg) {
         $('#messages').append($('<li>').text(msg));
       });
