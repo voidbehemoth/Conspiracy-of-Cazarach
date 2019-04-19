@@ -13,7 +13,7 @@ let {
 } = common_data;
 
 // A self-implemented wait function. Only for use in async functions.
-function wait(milliseconds) {
+function timer(milliseconds) {
     return new Promise((resolve, reject ) => {
         setTimeout(()=>{
             resolve();
@@ -50,21 +50,21 @@ io.on("connection", function (socket) {
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: If you fail to do so within 30 seconds you will be assigned a nickname`);
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: You will be unable to chat until you have picked a nickname`);
             game.nicknameGatheringMode = true;
-            wait(15000)
+            await timer(15000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 15 seconds left...`)
-            wait(5000)
+            await timer(5000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 10 seconds left...`)
-            wait(5000)
+            await timer(5000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 5 seconds left...`)
-            wait(1000)
+            await timer(1000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 4 seconds left...`)
-            wait(1000)
+            await timer(1000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 3 seconds left...`)
-            wait(1000)
+            await timer(1000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 2 seconds left...`)
-            wait(1000)
+            await timer(1000)
             io.in(`${game.gameID}`).emit('chat message', `AUTOMODERATOR: 1 seconds left...`)
-            wait(1000)
+            await timer(1000)
             nickentries = Object.entries(nicknames);
             // Itetates through all users, checking if they have a nickname. 
             for (var i = 0; i < nickentries.length; i++) {
